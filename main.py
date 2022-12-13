@@ -68,27 +68,48 @@ def encontrar_hueco(tablero,n, char_i):
 		if col == n: # si la columna es 9
 			fin_tablero = True
 	return fila, col, hueco_encontrado
-def buscarjugada(tablero, fila, col,n):
-  mismo_num_fila =True
-  mismo_num_col= True
-  mismo_num_cuadrilla= True
-  #tengo en cuenta todos los num de la fila hago un For
-  lista_num_fila= []
-  for pos in range(n):
-    lista_num_fila.append(tablero[fila][c])
+def buscarjugada(tablero,fila,col,n):
+	mismo_num_fila = True
+	mismo_num_col = True
+	mismo_num_cuadrilla = True
 
-  
-  lista_num_col= []
-  for pos in range(n):
-    lista_num_col.append(tablero[f][col])
-    
-  print(lista_num_fila)
-  print(lista_num_col)
-  
+	# como tengo que tener en cuenta TODOS los números de la fila hago For
+	lista_num_fila = []
+	for c in range(n):
+		if type(tablero[fila][c]) == int:
+			lista_num_fila.append(tablero[fila][c])
+
+	lista_num_col = []
+	for f in range(n):
+		if type(tablero[f][col]) == int:
+			lista_num_col.append(tablero[f][col])
+
+	cuadrilla_fila = fila // 3
+	cuadrilla_col = col // 3
+
+	lista_num_cuadrilla = []
+	for f in range(cuadrilla_fila*3, cuadrilla_fila*3 + 3):
+		for c in range(cuadrilla_col*3, cuadrilla_col*3 + 3):
+			if type(tablero[f][c]) == int:
+				lista_num_cuadrilla.append(tablero[f][c])
+
+
+
+	#print(lista_num_fila)
+	#print(lista_num_col)
+	#print(lista_num_cuadrilla)
+	lista_total = lista_num_cuadrilla + lista_num_col + lista_num_fila
+	print(lista_total)
+	lista_num_posibles = []
+	for x in range(1,10):
+		if x not in lista_total:
+			lista_num_posibles.append(x)
+	print(lista_num_posibles)
+
 def rellenar_tablero(tablero, n, char_i):
 	fila, col, hueco_encontrado = encontrar_hueco(tablero, n, char_i)
 	if hueco_encontrado:
-		#buscarjugada()
+		buscarjugada(tablero,fila,col,n)
 		print("el hueco encontrado esta en la fila",fila, "y la columna", col)
 		pass
 	else:
